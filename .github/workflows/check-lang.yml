@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_EXMENT_REPOSITORY: Quang270904/docker-exment
   EXMENT_BOILERPLATE_REPOSITORY: Quang270904/exment-boilerplate
-  LARAVEL_ADMIN_REPOSITORY: Quang270904/exment-boilerplate
+  LARAVEL_ADMIN_REPOSITORY: Quang270904/laravel-admin
 
 jobs:
   check-lang:
