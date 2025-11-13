@@ -43,7 +43,7 @@ class AccessibleUserTest extends UnitTestBase
 
     /**
      * @return void
-     */
+     */   
     public function testFuncNoPermission()
     {
         $custom_table = CustomTable::getEloquent(TestDefine::TESTDATA_TABLE_NO_PERMISSION);
