@@ -38,6 +38,7 @@
         "lcobucci/jwt": "^5.0",
         "composer/composer": "^2.0",
         "exceedone/laravel-admin": "^4.0.0",
+        "exceedone/exment": "dev-main",
         "kylekatarnls/update-helper": "^1.2",
         "laravel/socialite": "^5.2",
         "psr/simple-cache": "^2.0",
