@@ -54,7 +54,8 @@
     "autoload": {
         "psr-4": {
             "Exceedone\\Exment\\": "src/",
-            "Exceedone\\Exment\\Tests\\": "tests/"
+            "Exceedone\\Exment\\Tests\\": "tests/",
+            "OpenAdminCore\\Admin\\": "open-admin-core/src/Admin/"
         }
     },
     "extra": {
