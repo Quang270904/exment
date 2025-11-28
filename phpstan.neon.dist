@@ -13,6 +13,8 @@ parameters:
         - Illuminate\Database\Eloquent\Model
         - Illuminate\Contracts\Auth\Authenticatable
     ignoreErrors:
+            - '#Internal error: Property cannot be retrieved#'
+
         -
             message: "#^Call to an undefined method Encore\\\\Admin.#"
             path: vendor/exceedone/exment/src/*
