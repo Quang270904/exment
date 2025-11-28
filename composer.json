@@ -56,7 +56,7 @@
         "psr-4": {
             "Exceedone\\Exment\\": "src/",
             "Exceedone\\Exment\\Tests\\": "tests/",
-            "OpenAdminCore\\Admin\\": "open-admin-core/src/Admin/"
+            "OpenAdminCore\\Admin\\": "src/"
         }
     },
     "extra": {
