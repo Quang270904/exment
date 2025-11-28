@@ -2,12 +2,12 @@
 
 namespace OpenAdminCore\Admin\Form\Field;
 
-use OpenAdminCore\Admin\Form\Field;
+use OpenAdminCore\Admin\Form\Field as BaseField ;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Closure;
 
-class File extends Field
+class File extends BaseField
 {
     use UploadField;
 

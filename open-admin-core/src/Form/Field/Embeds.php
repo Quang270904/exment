@@ -3,11 +3,11 @@
 namespace OpenAdminCore\Admin\Form\Field;
 
 use OpenAdminCore\Admin\Form\EmbeddedForm;
-use OpenAdminCore\Admin\Form\Field;
+use OpenAdminCore\Admin\Form\Field as BaseField;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class Embeds extends Field
+class Embeds extends BaseField
 {
     /**
      * @var \Closure
