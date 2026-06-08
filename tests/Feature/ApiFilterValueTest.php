@@ -728,7 +728,17 @@ class ApiFilterValueTest extends ExmentKitTestCase
      */
     protected function _testConditionValueColumnDate(int $filterOption, bool $hasHtml)
     {
-        $this->__testConditionValueApiColumn(ColumnType::DATE, $filterOption, $hasHtml, 'input[type="text"]');
+        // $this->__testConditionValueApiColumn(ColumnType::DATE, $filterOption, $hasHtml, 'input[type="text"]');
+        $inputType = 'input[type="text"]';
+        if (in_array($filterOption, [
+            FilterOption::DAY_LAST_X_DAY_OR_AFTER,
+            FilterOption::DAY_NEXT_X_DAY_OR_AFTER,
+            FilterOption::DAY_LAST_X_DAY_OR_BEFORE,
+            FilterOption::DAY_NEXT_X_DAY_OR_BEFORE
+        ])) {
+            $inputType = 'input[type="number"]';
+        }
+        $this->__testConditionValueApiColumn(ColumnType::DATE, $filterOption, $hasHtml, $inputType);
     }
 
 
@@ -961,7 +971,17 @@ class ApiFilterValueTest extends ExmentKitTestCase
      */
     protected function _testConditionValueColumnDatetime(int $filterOption, bool $hasHtml)
     {
-        $this->__testConditionValueApiColumn(ColumnType::DATETIME, $filterOption, $hasHtml, 'input[type="text"]');
+        // $this->__testConditionValueApiColumn(ColumnType::DATETIME, $filterOption, $hasHtml, 'input[type="text"]');
+        $inputType = 'input[type="text"]';
+        if (in_array($filterOption, [
+            FilterOption::DAY_LAST_X_DAY_OR_AFTER,
+            FilterOption::DAY_NEXT_X_DAY_OR_AFTER,
+            FilterOption::DAY_LAST_X_DAY_OR_BEFORE,
+            FilterOption::DAY_NEXT_X_DAY_OR_BEFORE
+        ])) {
+            $inputType = 'input[type="number"]';
+        }
+        $this->__testConditionValueApiColumn(ColumnType::DATETIME, $filterOption, $hasHtml, $inputType);
     }
 
 
@@ -2319,7 +2339,9 @@ class ApiFilterValueTest extends ExmentKitTestCase
         $response = $this->response->getContent();
         $this->assertTrue(is_json($response), "response is not json. response is $response");
 
+        // @phpstan-ignore-next-line
         $json = json_decode_ex($response, true);
+        // @phpstan-ignore-next-line
         $html = array_get($json, 'html');
 
         // check element result

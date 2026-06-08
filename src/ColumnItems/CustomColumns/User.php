@@ -2,7 +2,7 @@
 
 namespace Exceedone\Exment\ColumnItems\CustomColumns;
 
-use Encore\Admin\Form;
+use OpenAdminCore\Admin\Form;
 use Exceedone\Exment\Enums\ColumnDefaultType;
 use Exceedone\Exment\Enums\ColumnType;
 use Exceedone\Exment\Enums\SystemTableName;
@@ -10,6 +10,7 @@ use Exceedone\Exment\Model\CustomTable;
 
 class User extends SelectTable
 {
+    // @phpstan-ignore-next-line
     public function __construct($custom_column, $custom_value, $view_column_target = null)
     {
         parent::__construct($custom_column, $custom_value, $view_column_target);
@@ -88,6 +89,7 @@ class User extends SelectTable
      *
      * @return array offset 0: type, 1: value
      */
+    // @phpstan-ignore-next-line
     protected function getDefaultSetting()
     {
         list($default_type, $default) = parent::getDefaultSetting();

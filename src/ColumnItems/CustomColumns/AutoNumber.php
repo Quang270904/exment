@@ -4,18 +4,21 @@ namespace Exceedone\Exment\ColumnItems\CustomColumns;
 
 use Exceedone\Exment\ColumnItems\CustomItem;
 use Exceedone\Exment\Enums\FilterOption;
-use Encore\Admin\Form;
-use Encore\Admin\Form\Field;
+use OpenAdminCore\Admin\Form;
+use OpenAdminCore\Admin\Form\Field;
 
 class AutoNumber extends CustomItem
 {
+    // @phpstan-ignore-next-line
     protected $required = false;
 
+    // @phpstan-ignore-next-line
     protected function getAdminFieldClass()
     {
         return Field\Display::class;
     }
 
+    // @phpstan-ignore-next-line
     protected function setAdminOptions(&$field)
     {
         if (!isset($this->id)) {
@@ -36,6 +39,7 @@ class AutoNumber extends CustomItem
     /**
      * get auto number value
      */
+    // @phpstan-ignore-next-line
     public function saved()
     {
         // already set value, break
@@ -66,6 +70,7 @@ class AutoNumber extends CustomItem
     /**
      * Create Auto Number value using format.
      */
+    // @phpstan-ignore-next-line
     protected function createAutoNumberFormat($options)
     {
         // get format

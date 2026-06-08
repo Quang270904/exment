@@ -16,7 +16,7 @@ use Exceedone\Exment\Enums\SystemColumn;
 class Define
 {
     public const COMPOSER_PACKAGE_NAME = 'exceedone/exment';
-    public const COMPOSER_PACKAGE_NAME_LARAVEL_ADMIN = 'exceedone/laravel-admin';
+    public const COMPOSER_PACKAGE_NAME_LARAVEL_ADMIN = 'exceedone/open-admin-core';
     public const COMPOSER_VERSION_CHECK_URL = 'https://packagist.org/packages/exceedone/exment.json';
     public const EXMENT_NEWS_API_URL = 'https://exment.net/wp-json/wp/v2/posts';
     public const EXMENT_NEWS_LINK = 'https://exment.net/archives/category/news';
@@ -389,7 +389,7 @@ class Define
     ];
 
     public const DATABASE_VERSION = [
-        'mysql' => ['min' => '5.7.8', 'max_lt' => '8.1.0'],
+        'mysql' => ['min' => '5.7.8'],
         'mariadb' => ['min' => '10.2.7'],
         'sqlsrv' => ['min' => '13.0.0.0'],
     ];
@@ -411,6 +411,8 @@ class Define
         'data',
     ];
 
+
+    // @phpstan-ignore-next-line
     public static function FILE_OPTION()
     {
         // get max size

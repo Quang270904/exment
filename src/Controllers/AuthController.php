@@ -18,7 +18,7 @@ use Exceedone\Exment\Enums\SystemTableName;
 use Exceedone\Exment\Enums\FileType;
 use Exceedone\Exment\Enums\EditableUserInfoType;
 use Exceedone\Exment\Validator as ExmentValidator;
-use Encore\Admin\Form;
+use OpenAdminCore\Admin\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
@@ -26,7 +26,7 @@ use Carbon\Carbon;
 /**
  * For login controller
  */
-class AuthController extends \Encore\Admin\Controllers\AuthController
+class AuthController extends \OpenAdminCore\Admin\Controllers\AuthController
 {
     use AuthTrait;
 
@@ -96,6 +96,7 @@ class AuthController extends \Encore\Admin\Controllers\AuthController
      * @param LoginSetting|null $login_setting
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
+    // @phpstan-ignore-next-line
     protected function executeLogin(Request $request, array $credentials, ?LoginSetting $login_setting = null)
     {
         $remember = boolval($request->get('remember', false));
@@ -116,6 +117,7 @@ class AuthController extends \Encore\Admin\Controllers\AuthController
                 }
 
                 $this->postVerifyEmail2factor();
+                // @phpstan-ignore-next-line
                 return $this->sendLoginResponse($request);
             }
 
@@ -148,6 +150,7 @@ class AuthController extends \Encore\Admin\Controllers\AuthController
      *
      * @return bool if true, change password for first time. If false, continue.
      */
+    // @phpstan-ignore-next-line
     protected function firstChangePassword($login_type)
     {
         if ($login_type != LoginType::PURE) {
@@ -167,6 +170,7 @@ class AuthController extends \Encore\Admin\Controllers\AuthController
      *
      * @return bool if true, check password is OK. If false, user has to change password.
      */
+    // @phpstan-ignore-next-line
     protected function checkPasswordLimit($login_type)
     {
         if ($login_type != LoginType::PURE) {
@@ -191,8 +195,7 @@ class AuthController extends \Encore\Admin\Controllers\AuthController
         }
 
         // calc diff days
-        $diff_days = $last_history->created_at->diffInDays(Carbon::now());
-
+        $diff_days = (int) $last_history->created_at->diffInDays(Carbon::now(), true);
         if ($diff_days > $expiration_days) {
             return false;
         }
@@ -224,6 +227,7 @@ class AuthController extends \Encore\Admin\Controllers\AuthController
         return redirect(\URL::route('exment.login'));
     }
 
+    // @phpstan-ignore-next-line
     protected function postVerifyEmail2factor()
     {
         if (!boolval(config('exment.login_use_2factor', false)) || !boolval(System::login_use_2factor())) {
@@ -237,6 +241,7 @@ class AuthController extends \Encore\Admin\Controllers\AuthController
     /**
      * file delete auth.
      */
+    // @phpstan-ignore-next-line
     public function filedelete(Request $request)
     {
         $loginUser = \Exment::user();

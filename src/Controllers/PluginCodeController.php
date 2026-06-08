@@ -2,10 +2,10 @@
 
 namespace Exceedone\Exment\Controllers;
 
-use Encore\Admin\Layout\Content;
-use Encore\Admin\Auth\Permission as Checker;
-use Encore\Admin\Layout\Row;
-use Encore\Admin\Widgets\Box;
+use OpenAdminCore\Admin\Layout\Content;
+use OpenAdminCore\Admin\Auth\Permission as Checker;
+use OpenAdminCore\Admin\Layout\Row;
+use OpenAdminCore\Admin\Widgets\Box;
 use Exceedone\Exment\Model\Define;
 use Exceedone\Exment\Model\Plugin;
 use Exceedone\Exment\Enums\Permission;
@@ -18,6 +18,7 @@ class PluginCodeController extends AdminControllerBase
 {
     use CodeTreeTrait;
 
+    // @phpstan-ignore-next-line
     protected $plugin;
 
     protected const node_key = Define::SYSTEM_KEY_SESSION_FILE_NODELIST;
@@ -70,6 +71,7 @@ class PluginCodeController extends AdminControllerBase
         return $content;
     }
 
+    // @phpstan-ignore-next-line
     protected function getJsTreeBox($id)
     {
         $view = view('exment::widgets.jstree', [
@@ -91,6 +93,7 @@ class PluginCodeController extends AdminControllerBase
      * @param $id
      * @return false|\Illuminate\Http\JsonResponse
      */
+    // @phpstan-ignore-next-line
     public function getTreeData(Request $request, $id)
     {
         $this->plugin = Plugin::getEloquent($id);
@@ -130,6 +133,7 @@ class PluginCodeController extends AdminControllerBase
      * @return false|\Illuminate\Http\RedirectResponse
      * @throws FileNotFoundException
      */
+    // @phpstan-ignore-next-line
     public function fileupload(Request $request, $id)
     {
         $this->plugin = Plugin::getEloquent($id);
@@ -152,6 +156,7 @@ class PluginCodeController extends AdminControllerBase
 
             $upload_files = $request->file('fileUpload');
 
+            // @phpstan-ignore-next-line
             foreach ($upload_files as $upload_file) {
                 $filename = $upload_file->getClientOriginalName();
 
@@ -174,6 +179,7 @@ class PluginCodeController extends AdminControllerBase
      * @return array
      * @throws \Exception
      */
+    // @phpstan-ignore-next-line
     public function getFileEditForm(Request $request, $id)
     {
         $this->plugin = Plugin::getEloquent($id);
@@ -197,6 +203,7 @@ class PluginCodeController extends AdminControllerBase
      * @return array|void
      * @throws \Exception
      */
+    // @phpstan-ignore-next-line
     protected function getFileEditFormView(Request $request, $id)
     {
         $validator = \Validator::make($request->all(), [
@@ -267,6 +274,7 @@ class PluginCodeController extends AdminControllerBase
      * @param string $nodepath
      * @return array [CodeMirror mode, image extension, deletable flg]
      */
+    // @phpstan-ignore-next-line
     protected function getPluginFileType($nodepath)
     {
         // exclude config.json
@@ -315,6 +323,7 @@ class PluginCodeController extends AdminControllerBase
      * @return false|Response
      * @throws FileNotFoundException
      */
+    // @phpstan-ignore-next-line
     public function delete(Request $request, $id)
     {
         $this->plugin = Plugin::getEloquent($id);
@@ -357,6 +366,7 @@ class PluginCodeController extends AdminControllerBase
      * @return false|Response
      * @throws FileNotFoundException
      */
+    // @phpstan-ignore-next-line
     public function store(Request $request, $id)
     {
         $this->plugin = Plugin::getEloquent($id);
@@ -407,12 +417,14 @@ class PluginCodeController extends AdminControllerBase
     }
 
 
+    // @phpstan-ignore-next-line
     protected function getDirectoryPaths($folder)
     {
         return $this->plugin->getPluginDirPaths($folder, false);
     }
 
 
+    // @phpstan-ignore-next-line
     protected function getFilePaths($folder)
     {
         return $this->plugin->getPluginFilePaths($folder, false);

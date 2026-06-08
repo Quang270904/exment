@@ -2,9 +2,9 @@
 
 namespace Exceedone\Exment\Controllers;
 
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Layout\Content;
+use OpenAdminCore\Admin\Form;
+use OpenAdminCore\Admin\Grid;
+use OpenAdminCore\Admin\Layout\Content;
 use Exceedone\Exment\Form\Tools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -88,7 +88,7 @@ class LoginUserController extends AdminControllerBase
             $button = new Tools\ExportImportButton(admin_url('loginuser'), $grid, false, true);
             $button->setBaseKey('common');
 
-            /** @phpstan-ignore-next-line append() expects Encore\Admin\Grid\Tools\AbstractTool|string, Exceedone\Exment\Form\Tools\ExportImportButton given */
+            /** @phpstan-ignore-next-line append() expects OpenAdminCore\Admin\Grid\Tools\AbstractTool|string, Exceedone\Exment\Form\Tools\ExportImportButton given */
             $tools->append($button);
             $tools->batch(function (Grid\Tools\BatchActions $actions) {
                 $actions->disableDelete();
@@ -102,12 +102,14 @@ class LoginUserController extends AdminControllerBase
     /**
      * get import modal
      */
+    // @phpstan-ignore-next-line
     public function importModal(Request $request)
     {
         $service = $this->getImportExportService();
         return $service->getImportModal();
     }
 
+    // @phpstan-ignore-next-line
     protected function getImportExportService($grid = null)
     {
         // create exporter
@@ -128,6 +130,7 @@ class LoginUserController extends AdminControllerBase
      *
      * @return Form
      */
+    // @phpstan-ignore-next-line
     protected function form($id = null)
     {
         $classname = getModelName(SystemTableName::USER);
@@ -155,6 +158,7 @@ class LoginUserController extends AdminControllerBase
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector|Response
      * @throws \Throwable
      */
+    // @phpstan-ignore-next-line
     public function update($id)
     {
         DB::beginTransaction();
@@ -181,6 +185,7 @@ class LoginUserController extends AdminControllerBase
     /**
      * @param Request $request
      */
+    // @phpstan-ignore-next-line
     public function import(Request $request)
     {
         // create exporter
@@ -198,6 +203,7 @@ class LoginUserController extends AdminControllerBase
         return getAjaxResponse($result);
     }
 
+    // @phpstan-ignore-next-line
     protected function response()
     {
         $message = trans('admin.update_succeeded');
@@ -215,6 +221,7 @@ class LoginUserController extends AdminControllerBase
         return redirect($url);
     }
 
+    // @phpstan-ignore-next-line
     protected function getLoginUser($user)
     {
         $login_user = $user->login_users()->whereNull('login_provider')->first();

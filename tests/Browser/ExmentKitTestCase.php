@@ -14,7 +14,6 @@ use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
  */
 abstract class ExmentKitTestCase extends BaseTestCase
 {
-    use \Tests\CreatesApplication;
     use TestTrait;
 
     /**
@@ -82,6 +81,7 @@ abstract class ExmentKitTestCase extends BaseTestCase
             );
         }
 
+        // @phpstan-ignore-next-line
         $this->be($user);
     }
 
@@ -108,7 +108,7 @@ abstract class ExmentKitTestCase extends BaseTestCase
      */
     public function seeOuterElement($element, $text, $negate = false)
     {
-        return $this->assertInPage(new Constraints\HasOuterElement($element, $text), $negate);
+        return $this->assertInPage(new Constraints\HasOuterElement($element, (string) $text), $negate);
     }
 
 

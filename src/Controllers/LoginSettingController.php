@@ -2,13 +2,13 @@
 
 namespace Exceedone\Exment\Controllers;
 
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Widgets\Box;
+use OpenAdminCore\Admin\Form;
+use OpenAdminCore\Admin\Grid;
+use OpenAdminCore\Admin\Widgets\Box;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Encore\Admin\Widgets\Form as WidgetForm;
+use OpenAdminCore\Admin\Widgets\Form as WidgetForm;
 use Exceedone\Exment\Form\Tools;
 use Exceedone\Exment\Model\LoginSetting;
 use Exceedone\Exment\Model\System;
@@ -25,7 +25,7 @@ use Exceedone\Exment\Services\Installer\InitializeFormTrait;
 use Exceedone\Exment\Services\Auth2factor\Auth2factorService;
 use Exceedone\Exment\Services\Login\LoginService;
 use Exceedone\Exment\Services\Login as LoginServiceBase;
-use Encore\Admin\Layout\Content;
+use OpenAdminCore\Admin\Layout\Content;
 use Carbon\Carbon;
 use Exceedone\Exment\Exceptions\NoMailTemplateException;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -101,6 +101,7 @@ class LoginSettingController extends AdminControllerBase
      *
      * @return Form
      */
+    // @phpstan-ignore-next-line
     protected function form($id = null)
     {
         $form = new Form(new LoginSetting());
@@ -232,6 +233,7 @@ class LoginSettingController extends AdminControllerBase
             } elseif ($request->get('login_type') == LoginType::OAUTH) {
                 $provider_name = array_get($request->all(), 'options.oauth_provider_type') == 'other' ? array_get($request->all(), 'options.oauth_provider_name') : array_get($request->all(), 'options.oauth_provider_type');
             } elseif ($request->old('login_type') == LoginType::OAUTH) {
+                // @phpstan-ignore-next-line
                 $provider_name = array_get($request->old(), 'options.oauth_provider_type') == 'other' ? array_get($request->old(), 'options.oauth_provider_name') : array_get($request->old(), 'options.oauth_provider_type');
             }
             if (!is_nullorempty($provider_name)) {
@@ -258,7 +260,7 @@ class LoginSettingController extends AdminControllerBase
                     route('exment.logintest_modal', ['id' => $login_setting->id]),
                     [
                         'label' => exmtrans('login.login_test'),
-                        'button_class' => 'btn-success',
+                        'button_class' => 'btn-success p-2',
                         'icon' => 'fa-check-circle',
                     ]
                 ));
@@ -282,6 +284,7 @@ class LoginSettingController extends AdminControllerBase
      *
      * @return \Illuminate\Support\Collection
      */
+    // @phpstan-ignore-next-line
     protected function checkLibraries()
     {
         $errors = [];
@@ -298,6 +301,7 @@ class LoginSettingController extends AdminControllerBase
         }
 
         /** @var Collection $collection */
+        // @phpstan-ignore-next-line
         $collection =  collect($errors)->mapWithKeys(function ($error) {
             return [$error->getValue() => '<span class="red">' . exmtrans('login.message.not_install_library', [
                 'name' => $error->transKey('login.login_type_options'),
@@ -316,7 +320,7 @@ class LoginSettingController extends AdminControllerBase
     protected function globalSettingBox(Request $request)
     {
         $form = $this->globalSettingForm($request);
-        /** @phpstan-ignore-next-line constructor expects string, Encore\Admin\Widgets\Form given */
+        /** @phpstan-ignore-next-line constructor expects string, OpenAdminCore\Admin\Widgets\Form given */
         $box = new Box(exmtrans('common.detail_setting'), $form);
         return $box;
     }
@@ -536,6 +540,7 @@ class LoginSettingController extends AdminControllerBase
     }
 
 
+    // @phpstan-ignore-next-line
     protected function getEditUrl($id, $testCallback = false)
     {
         $uri = route('exment.login_setting.edit', ['id' => $id]);
@@ -555,6 +560,7 @@ class LoginSettingController extends AdminControllerBase
      */
     public function activate(Request $request, $id)
     {
+        // @phpstan-ignore-next-line
         return $this->toggleActivate($request, $id, true);
     }
 
@@ -567,6 +573,7 @@ class LoginSettingController extends AdminControllerBase
      */
     public function deactivate(Request $request, $id)
     {
+        // @phpstan-ignore-next-line
         return $this->toggleActivate($request, $id, false);
     }
 
@@ -635,6 +642,7 @@ class LoginSettingController extends AdminControllerBase
      * Send data
      * @param Request $request
      */
+    // @phpstan-ignore-next-line
     public function post2factor(Request $request)
     {
         $login_2factor_verify_code = $request->get('login_2factor_verify_code');
@@ -741,6 +749,7 @@ class LoginSettingController extends AdminControllerBase
      * @param Request $request
      * @return array
      */
+    // @phpstan-ignore-next-line
     public function loginOptionHtml(Request $request)
     {
         $val = $request->get('val');

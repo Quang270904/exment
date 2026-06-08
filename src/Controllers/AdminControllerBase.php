@@ -4,13 +4,13 @@ namespace Exceedone\Exment\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Encore\Admin\Layout\Content;
+use OpenAdminCore\Admin\Layout\Content;
 
 /**
  * Admin(Exment) Controller
  *
-* @method \Encore\Admin\Grid grid()
-* @method \Encore\Admin\Form form($id = null)
+* @method \OpenAdminCore\Admin\Grid grid()
+* @method \OpenAdminCore\Admin\Form form($id = null)
  */
 class AdminControllerBase extends Controller
 {
@@ -31,8 +31,8 @@ class AdminControllerBase extends Controller
      *
      * @param Request $request
      * @param Content $content
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param mixed $id
+     * @return Content|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function show(Request $request, Content $content, $id)
     {

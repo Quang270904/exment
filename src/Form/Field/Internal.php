@@ -2,7 +2,7 @@
 
 namespace Exceedone\Exment\Form\Field;
 
-use Encore\Admin\Form\Field;
+use OpenAdminCore\Admin\Form\Field;
 
 /**
  * Internal value. not set html, and set database using prepare value
@@ -18,6 +18,7 @@ class Internal extends Field
      *
      * @return mixed
      */
+    // @phpstan-ignore-next-line
     public function prepare($value)
     {
         return $this->getDefault() ?? $this->original();

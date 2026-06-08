@@ -3,9 +3,9 @@
 namespace Exceedone\Exment;
 
 use Storage;
-use Encore\Admin\Admin;
-use Encore\Admin\Middleware as AdminMiddleware;
-use Encore\Admin\AdminServiceProvider as ServiceProvider;
+use OpenAdminCore\Admin\Admin;
+use OpenAdminCore\Admin\Middleware as AdminMiddleware;
+use OpenAdminCore\Admin\AdminServiceProvider as ServiceProvider;
 use Exceedone\Exment\Providers as ExmentProviders;
 use Exceedone\Exment\Model\Define;
 use Exceedone\Exment\Model\Plugin;
@@ -40,6 +40,7 @@ class ExmentServiceProvider extends ServiceProvider
      *
      * @var array
      */
+    // @phpstan-ignore-next-line
     protected $policies = [
         'Exceedone\Exment\Model' => 'App\Policies\ModelPolicy',
     ];
@@ -49,6 +50,7 @@ class ExmentServiceProvider extends ServiceProvider
      *
      * @var array
      */
+    // @phpstan-ignore-next-line
     protected $serviceProviders = [
         ExmentProviders\RouteServiceProvider::class,
         ExmentProviders\Route2factorServiceProvider::class,
@@ -61,6 +63,7 @@ class ExmentServiceProvider extends ServiceProvider
     /**
      * @var array commands
      */
+    // @phpstan-ignore-next-line
     protected $commands = [
         \Exceedone\Exment\Console\VersionCommand::class,
         \Exceedone\Exment\Console\InstallCommand::class,
@@ -101,6 +104,7 @@ class ExmentServiceProvider extends ServiceProvider
      *
      * @var array
      */
+    // @phpstan-ignore-next-line
     protected $middleware = [
         \Exceedone\Exment\Middleware\TrustProxies::class,
         \Exceedone\Exment\Middleware\ExmentDebug::class,
@@ -112,6 +116,7 @@ class ExmentServiceProvider extends ServiceProvider
      *
      * @var array
      */
+    // @phpstan-ignore-next-line
     protected $routeMiddleware = [
         'admin.auth'       => \Exceedone\Exment\Middleware\Authenticate::class,
         'log.exec.time' => \Exceedone\Exment\Middleware\LogRouteExecutionTime::class,
@@ -149,6 +154,7 @@ class ExmentServiceProvider extends ServiceProvider
      *
      * @var array
      */
+    // @phpstan-ignore-next-line
     protected $middlewareGroups = [
         // Exment web page default
         'admin' => [
@@ -202,7 +208,7 @@ class ExmentServiceProvider extends ServiceProvider
         ],
         // Exment Web page. custom verify
         'adminweb' => [
-            \App\Http\Middleware\EncryptCookies::class,
+            \Exceedone\Exment\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
@@ -218,7 +224,8 @@ class ExmentServiceProvider extends ServiceProvider
             // 'throttle:60,1',
             //'bindings',
             //　↓
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,        ],
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
         // Exment Plugin API
         'pluginapi' => [
             'pluginapi.auth',
@@ -268,6 +275,9 @@ class ExmentServiceProvider extends ServiceProvider
     {
         parent::boot();
 
+        foreach ($this->getMiddlewareGroups() as $key => $middleware) {
+            app('router')->middlewareGroup($key, $middleware);
+        }
         $this->bootApp();
         $this->bootSetting();
         $this->bootDatabase();
@@ -289,10 +299,10 @@ class ExmentServiceProvider extends ServiceProvider
     public function register()
     {
         parent::register();
-        require_once(__DIR__.'/Services/Helpers.php');
+        require_once(__DIR__ . '/Services/Helpers.php');
 
         $this->mergeConfigFrom(
-            __DIR__.'/../config/exment.php',
+            __DIR__ . '/../config/exment.php',
             'exment'
         );
 
@@ -305,11 +315,6 @@ class ExmentServiceProvider extends ServiceProvider
         // register route middleware.
         foreach ($this->routeMiddleware as $key => $middleware) {
             app('router')->aliasMiddleware($key, $middleware);
-        }
-
-        ////// register middleware group.
-        foreach ($this->getMiddlewareGroups() as $key => $middleware) {
-            app('router')->middlewareGroup($key, $middleware);
         }
 
         // register database
@@ -350,25 +355,25 @@ class ExmentServiceProvider extends ServiceProvider
                 \Exceedone\Exment\Exceptions\Handler::class
             );
         }
-
-        Passport::ignoreMigrations();
     }
 
+    // @phpstan-ignore-next-line
     protected function publish()
     {
-        $this->publishes([__DIR__.'/../config' => config_path()]);
-        $this->publishes([__DIR__.'/../public' => public_path('')], 'public');
-        $this->publishes([__DIR__.'/../resources/views/vendor' => resource_path('views/vendor')], 'views_vendor');
-        $this->publishes([base_path('vendor/' . Define::COMPOSER_PACKAGE_NAME_LARAVEL_ADMIN . '/resources/assets') => public_path('vendor/laravel-admin')], 'laravel-admin-assets-exment');
-        $this->publishes([base_path('vendor/' . Define::COMPOSER_PACKAGE_NAME_LARAVEL_ADMIN . '/resources/lang') => resource_path('lang')], 'laravel-admin-lang-exment');
-        $this->publishes([__DIR__.'/../resources/lang_vendor' => resource_path('lang')], 'lang_vendor');
+        $this->publishes([__DIR__ . '/../config' => config_path()]);
+        $this->publishes([__DIR__ . '/../public' => public_path('')], 'public');
+        $this->publishes([__DIR__ . '/../resources/views/vendor' => resource_path('views/vendor')], 'views_vendor');
+        $this->publishes([base_path('vendor/' . Define::COMPOSER_PACKAGE_NAME_LARAVEL_ADMIN . '/resources/assets') => public_path('vendor/open-admin')], 'open-admin-assets-exment');
+        $this->publishes([base_path('vendor/' . Define::COMPOSER_PACKAGE_NAME_LARAVEL_ADMIN . '/resources/lang') => resource_path('lang')], 'open-admin-lang-exment');
+        $this->publishes([__DIR__ . '/../resources/lang_vendor' => resource_path('lang')], 'lang_vendor');
     }
 
+    // @phpstan-ignore-next-line
     protected function load()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'exment');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'exment');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'exment');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'exment');
 
         // load plugins
         if (!canConnection() || !hasTable(SystemTableName::PLUGIN)) {
@@ -383,6 +388,7 @@ class ExmentServiceProvider extends ServiceProvider
         }
     }
 
+    // @phpstan-ignore-next-line
     protected function bootApp()
     {
         foreach ($this->serviceProviders as $serviceProvider) {
@@ -397,6 +403,7 @@ class ExmentServiceProvider extends ServiceProvider
 
         if (config('admin.https') || config('admin.secure')) {
             \URL::forceScheme('https');
+            // @phpstan-ignore-next-line
             $this->app['request']->server->set('HTTPS', true);
         }
         if (boolval(config('admin.use_app_url', false))) {
@@ -404,6 +411,7 @@ class ExmentServiceProvider extends ServiceProvider
         }
     }
 
+    // @phpstan-ignore-next-line
     protected function bootSchedule()
     {
         if (!$this->app->runningInConsole()) {
@@ -432,6 +440,7 @@ class ExmentServiceProvider extends ServiceProvider
         });
     }
 
+    // @phpstan-ignore-next-line
     protected function bootPassport()
     {
         // adding rule for laravel-passport
@@ -446,6 +455,7 @@ class ExmentServiceProvider extends ServiceProvider
     }
 
 
+    // @phpstan-ignore-next-line
     protected function bootSetting()
     {
         Initialize::requireBootstrap();
@@ -472,7 +482,7 @@ class ExmentServiceProvider extends ServiceProvider
 
         Initialize::initializeConfig(false);
 
-        if (method_exists("\Encore\Admin\Admin", "registered")) {
+        if (method_exists("\OpenAdminCore\Admin\Admin", "registered")) {
             Admin::registered(function () {
                 Initialize::registeredLaravelAdmin();
             });
@@ -518,6 +528,7 @@ class ExmentServiceProvider extends ServiceProvider
      *
      * @return array
      */
+    // @phpstan-ignore-next-line
     public function policies()
     {
         return $this->policies;
@@ -529,6 +540,7 @@ class ExmentServiceProvider extends ServiceProvider
      *
      * @return array
      */
+    // @phpstan-ignore-next-line
     public function getMiddlewareGroups()
     {
         ////// register middleware group.
@@ -572,13 +584,16 @@ class ExmentServiceProvider extends ServiceProvider
      * @param  array  $config
      * @return \Illuminate\Auth\RequestGuard
      */
+    // @phpstan-ignore-next-line
     protected function makeGuard(array $config)
     {
         return new RequestGuard(function ($request) use ($config) {
             return (new PublicFormGuard(
                 Auth::createUserProvider($config['provider']),
+                // @phpstan-ignore-next-line
                 $this->app['request']
             ))->user();
+        // @phpstan-ignore-next-line
         }, $this->app['request']);
     }
 }

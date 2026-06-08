@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\App;
 
 class TableService
 {
+    /**
+     * @param mixed $tools
+     * @param \Exceedone\Exment\Model\CustomTable $custom_table
+     * @return void
+     */
     public static function appendActivateSwalButtonQRCode($tools, $custom_table)
     {
         if (!$custom_table->getOption('jan_use')) {
@@ -37,6 +42,11 @@ class TableService
         }
     }
 
+    /**
+     * @param mixed $tools
+     * @param \Exceedone\Exment\Model\CustomTable $custom_table
+     * @return void
+     */
     public static function appendActivateSwalButtonJanCode($tools, $custom_table)
     {
         if (!$custom_table->getOption('qr_use')) {
@@ -71,6 +81,11 @@ class TableService
         }
     }
 
+    /**
+     * @param mixed $tools
+     * @param \Exceedone\Exment\Model\CustomTable $custom_table
+     * @return void
+     */
     public static function appendCreateAndDownloadButtonQRCode($tools, $custom_table)
     {
         $current_locale = App::getLocale();
@@ -83,7 +98,7 @@ class TableService
                 'url' => route('exment.qrcode_download', ['tableKey' => $custom_table->id]),
                 'label' => $label_download,
                 'icon' => 'fa-arrow-circle-down',
-                'btn_class' => 'btn-success download-qr',
+                'btn_class' => 'btn-success download-qr p-2',
                 'title' => exmtrans("common.download"),
                 'text' => exmtrans('common.message.confirm_execute', exmtrans('common.download')),
                 'method' => 'post'

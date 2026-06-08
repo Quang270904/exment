@@ -2,7 +2,7 @@
 
 namespace Exceedone\Exment\Grid\Tools;
 
-use Encore\Admin\Grid\Tools\BatchAction;
+use OpenAdminCore\Admin\Grid\Tools\BatchAction;
 
 class BatchRestore extends BatchAction
 {
@@ -15,6 +15,8 @@ class BatchRestore extends BatchAction
 
     /**
      * Script of batch delete action.
+     *
+     * @return string
      */
     public function script()
     {

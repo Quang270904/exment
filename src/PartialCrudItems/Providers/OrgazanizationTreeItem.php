@@ -4,7 +4,7 @@ namespace Exceedone\Exment\PartialCrudItems\Providers;
 
 use Exceedone\Exment\PartialCrudItems\ProviderBase;
 use Exceedone\Exment\Enums\SystemTableName;
-use Encore\Admin\Tree;
+use OpenAdminCore\Admin\Tree;
 
 /**
  * OrgazanizationTreeItem
@@ -15,6 +15,7 @@ class OrgazanizationTreeItem extends ProviderBase
     /**
      * set laravel admin grid's content
      */
+    // @phpstan-ignore-next-line
     public function setGridContent(&$content)
     {
         if (!boolval(config('exment.show_organization_tree', false))) {

@@ -41,13 +41,24 @@ After that, if the following description is included, comment it out.
 </phpunit>
 ```
 
+- If phpunit.xml contains a hardcoded `BCRYPT_ROUNDS` value, make sure it matches the `BCRYPT_ROUNDS` value used by your test database (set in `.env` or `config/hashing.php`).  
+  **If not explicitly set, the default value is 12.**  
+  For example, if your database was initialized with `BCRYPT_ROUNDS=12` but phpunit.xml has `value="4"`, authentication will fail during tests.  
+  Open phpunit.xml and update the value to match:
+
+``` xml
+<php>
+    <env name="BCRYPT_ROUNDS" value="12"/> <!-- Change to match the BCRYPT_ROUNDS value used when creating test data -->
+</php>
+```
+
 - The test does API, but in some cases it seems to get 429 errors (Too Many Requests).  
 Open app\Http\Kernel.php and modify the following description.
 
 ``` php
      protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
+            \Exceedone\Exment\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,

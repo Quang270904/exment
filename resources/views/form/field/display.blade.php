@@ -1,5 +1,5 @@
 <div class="{{$viewClass['form-group']}}">
-    <label class="{{$viewClass['label']}} control-label" style="padding-top:10px;">{{$label}}</label>
+    <label class="{{$viewClass['label']}} control-label text-lg-end pt-2" style="padding-top:10px;">{{$label}}</label>
     <div class="{{$viewClass['field']}}">
         <div class="no-margin">
             <!-- /.box-header -->
@@ -19,6 +19,8 @@
                     @endif
                 @endif
                 </span>
+                {{-- Hidden input to save value to database --}}
+                <input type="hidden" name="{{$name}}" value="{{$value}}" />
             </div><!-- /.box-body -->
         </div>
 
